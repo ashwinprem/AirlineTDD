@@ -9,10 +9,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class FlightController {
 
-	@GetMapping("/")
-	public String getCalculator(@RequestParam(name="operand1", required=false, defaultValue="") String operand1, Model model) {
+	@GetMapping("/hello")
+	public String getCalculator(@RequestParam(name="operand1", required=false, defaultValue="World") String operand1, Model model) {
 		model.addAttribute("operand1", operand1);
 		model.addAttribute("operand1Focused", operand1.length()>0);
-        return "system";
+        return "hello";
 	}
 }

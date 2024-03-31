@@ -1,75 +1,95 @@
 package com.ontariotechu.sofe3980U;
+
+import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Objects;
 
 public class Booking {
+    private Long id; // Added id field
     private String bookingNumber;
-    private ArrayList<Flight> flights;
-    private ArrayList<Passenger> passengers;
+    private List<Flight> flights;
+    private List<Passenger> passengers;
     private boolean isRoundTrip;
     private boolean isDirectFlight;
-    private Timezone userTimezone;
+    private ZoneId userTimezone;
 
     // Constructor
-    public Booking(String bookingNumber, ArrayList<Flight> flights, ArrayList<Passenger> passengers, boolean isRoundTrip, boolean isDirectFlight, Timezone userTimezone) {
-            this.bookingNumber = bookingNumber;
-            this.flights = flights;
-            this.passengers = passengers;
-            this.isRoundTrip = isRoundTrip;
-            this.isDirectFlight = isDirectFlight;
-            this.userTimezone = userTimezone;
+    public Booking(String bookingNumber, List<Flight> flights, List<Passenger> passengers,
+                   boolean isRoundTrip, boolean isDirectFlight, ZoneId userTimezone) {
+        this.bookingNumber = Objects.requireNonNull(bookingNumber, "Booking number cannot be null");
+        this.flights = flights != null ? new ArrayList<>(flights) : new ArrayList<>();
+        this.passengers = passengers != null ? new ArrayList<>(passengers) : new ArrayList<>();
+        this.isRoundTrip = isRoundTrip;
+        this.isDirectFlight = isDirectFlight;
+        this.userTimezone = Objects.requireNonNull(userTimezone, "User timezone cannot be null");
     }
 
+    // Getters and Setters
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    // Getters and setters
     public String getBookingNumber() {
-        return this.bookingNumber;
-    }
-
-    public ArrayList<Flight> getFlights() {
-        return this.flights;
-    }
-
-    public ArrayList<Passenger> getPassengers() {
-        return this.passengers;
-    }
-
-    public boolean isRoundTrip() {
-        return this.isRoundTrip;
-    }
-
-    public boolean isDirectFlight() {
-        return this.isDirectFlight;
-    }
-
-    public Timezone getUserTimezone() {
-        return this.userTimezone;
+        return bookingNumber;
     }
 
     public void setBookingNumber(String bookingNumber) {
         this.bookingNumber = bookingNumber;
     }
 
-    public void setFlights(ArrayList<Flight> flights) {
-        this.flights = flights;
+    public List<Flight> getFlights() {
+        return Collections.unmodifiableList(flights);
     }
 
-    public void setPassengers(ArrayList<Passenger> passengers) {
-        this.passengers = passengers;
+    public void setFlights(List<Flight> flights) {
+        this.flights = new ArrayList<>(flights);
+    }
+
+    public List<Passenger> getPassengers() {
+        return Collections.unmodifiableList(passengers);
+    }
+
+    public void setPassengers(List<Passenger> passengers) {
+        this.passengers = new ArrayList<>(passengers);
+    }
+
+    public boolean isRoundTrip() {
+        return isRoundTrip;
     }
 
     public void setRoundTrip(boolean roundTrip) {
-        this.isRoundTrip = roundTrip;
+        isRoundTrip = roundTrip;
+    }
+
+    public boolean isDirectFlight() {
+        return isDirectFlight;
     }
 
     public void setDirectFlight(boolean directFlight) {
-        this.isDirectFlight = directFlight;
+        isDirectFlight = directFlight;
     }
 
-    public void setUserTimezone(Timezone userTimezone) {
+    public ZoneId getUserTimezone() {
+        return userTimezone;
+    }
+
+    public void setUserTimezone(ZoneId userTimezone) {
         this.userTimezone = userTimezone;
     }
-    public void addFlight(Flight f){
-        this.flights.add(f);
+
+    // Methods to add a flight or passenger to their respective lists
+    public void addFlight(Flight flight) {
+        this.flights.add(flight);
     }
-    public void addPassenger(Passenger p){
-        this.passengers.add(p);
+
+    public void addPassenger(Passenger passenger) {
+        this.passengers.add(passenger);
     }
 }
